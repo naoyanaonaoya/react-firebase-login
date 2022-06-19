@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,7 +12,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+// Firebaseの認証機能を使う場合に必要な記述;
+export const auth = getAuth(app);
 
-export { auth, provider };
+// export default auth;
+
+// googleの認証機能を使って実装するときに必要
+// const provider = new GoogleAuthProvider();
+
+// export { auth, provider };
