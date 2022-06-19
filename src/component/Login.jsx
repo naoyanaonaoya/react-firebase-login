@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  signInWithCustomToken,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { Navigate, Link } from "react-router-dom";
 
