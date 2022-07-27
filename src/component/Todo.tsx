@@ -22,7 +22,7 @@ const Todo = () => {
         }))
       );
     });
-    // アンマウント時にリスターの削除
+    // アンマウント時にリスナーの削除
     return () => unSub();
 
     // マウント字にのみ実行
@@ -43,7 +43,7 @@ const Todo = () => {
       <ul>
         {todos.map((todo) => (
           // <li key={todo.id}>{todo.title}</li>
-          <TodoItem id={todo.id} title={todo.title} />
+          <TodoItem key={todo.id} id={todo.id} title={todo.title} />
         ))}
       </ul>
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useNavigate, Navigate } from "react-router-dom";
-import Todo from "./Todo";
+// import Todo from "./Todo";
 
 interface USER {
   email: string;
@@ -39,7 +39,7 @@ const Mypage = () => {
               <h1>マイページ</h1>
               <p>{user && user.email}</p>
               <p>todo list</p>
-              <Todo />
+              {/* <Todo /> */}
               <button onClick={logout}>ログアウト</button>
             </>
           )}
