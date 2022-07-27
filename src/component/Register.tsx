@@ -7,13 +7,12 @@ import { auth } from "../firebase";
 import { Navigate, Link } from "react-router-dom";
 
 const Register = () => {
-  console.log(auth);
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [user, setUser] = useState("");
 
   /* 関数handleSubmitを定義 */
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -22,15 +21,16 @@ const Register = () => {
         registerEmail,
         registerPassword
       );
-    } catch (error) {
-      alert("正しく入力してください");
+    } catch (error: typeof error.message) {
+      alert(error.message);
     }
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
+    const unSub = onAuthStateChanged(auth, (currentUser: any) => {
       setUser(currentUser);
     });
+    return () => unSub();
   }, []);
 
   return (
@@ -47,7 +47,9 @@ const Register = () => {
                 name="email"
                 type="email"
                 value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setRegisterEmail(e.target.value)
+                }
               />
             </div>
             <div>
@@ -56,7 +58,9 @@ const Register = () => {
                 name="password"
                 type="password"
                 value={registerPassword}
-                onChange={(e) => setRegisterPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setRegisterPassword(e.target.value)
+                }
               />
             </div>
             <button>登録する</button>

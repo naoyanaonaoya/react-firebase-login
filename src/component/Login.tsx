@@ -8,20 +8,22 @@ const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-    } catch (error) {
-      alert("メールアドレスまたはパスワードが間違っています");
+    } catch (error: typeof error.message) {
+      // alert("メールアドレスまたはパスワードが間違っています");
+      alert(error.message);
     }
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
+    const unSub = onAuthStateChanged(auth, (currentUser: any) => {
       setUser(currentUser);
     });
+    return () => unSub();
   });
 
   return (
@@ -38,7 +40,9 @@ const Login = () => {
                 name="email"
                 type="email"
                 value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setLoginEmail(e.target.value)
+                }
               />
             </div>
             <div>
@@ -47,7 +51,9 @@ const Login = () => {
                 name="password"
                 type="password"
                 value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setLoginPassword(e.target.value)
+                }
               />
             </div>
             <button>ログイン</button>
