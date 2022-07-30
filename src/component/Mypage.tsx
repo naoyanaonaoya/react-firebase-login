@@ -8,7 +8,7 @@ interface USER {
   email: string;
 }
 
-const Mypage = () => {
+const Mypage: React.FC = () => {
   const [user, setUser] = useState<USER>({ email: "" });
   const [loading, setLoading] = useState<boolean>(true);
 

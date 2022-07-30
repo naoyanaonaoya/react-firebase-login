@@ -1,37 +1,25 @@
-import React, { useState, useEffect } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { auth } from "../firebase";
+import React, { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Navigate, Link } from "react-router-dom";
 
-const Register = () => {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
+const Register: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [user, setUser] = useState("");
+  const auth = getAuth();
 
   /* 関数handleSubmitを定義 */
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-    } catch (error: typeof error.message) {
-      alert(error.message);
-    }
+    createUserWithEmailAndPassword(auth, email, password);
   };
 
-  useEffect(() => {
-    const unSub = onAuthStateChanged(auth, (currentUser: any) => {
-      setUser(currentUser);
-    });
-    return () => unSub();
-  }, []);
+  // useEffect(() => {
+  //   const unSub = onAuthStateChanged(auth, (currentUser: any) => {
+  //     setUser(currentUser);
+  //   });
+  //   unSub();
+  // }, []);
 
   return (
     <>
@@ -46,9 +34,9 @@ const Register = () => {
               <input
                 name="email"
                 type="email"
-                value={registerEmail}
+                value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setRegisterEmail(e.target.value)
+                  setEmail(e.target.value)
                 }
               />
             </div>
@@ -57,9 +45,9 @@ const Register = () => {
               <input
                 name="password"
                 type="password"
-                value={registerPassword}
+                value={password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setRegisterPassword(e.target.value)
+                  setPassword(e.target.value)
                 }
               />
             </div>

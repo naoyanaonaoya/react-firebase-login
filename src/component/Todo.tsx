@@ -8,7 +8,7 @@ interface TodoData {
   title: string;
 }
 
-const Todo = () => {
+const Todo: React.FC = () => {
   const [todos, setTodos] = useState<TodoData[]>([{ id: "", title: "" }]);
 
   useEffect(() => {
@@ -23,19 +23,7 @@ const Todo = () => {
       );
     });
     // アンマウント時にリスナーの削除
-    return () => unSub();
-
-    // マウント字にのみ実行
-    // getDocs(todosCollectionRef).then((querySnapshot) => {
-    //   // console.log(querySnapshot);
-    //   // querySnapshot.docs.forEach((doc) => console.log(doc.data()));
-    //   setTodos(
-    //     querySnapshot.docs.map((doc) => ({
-    //       id: doc.id,
-    //       title: doc.data().title,
-    //     }))
-    //   );
-    // });
+    unSub();
   }, []);
 
   return (

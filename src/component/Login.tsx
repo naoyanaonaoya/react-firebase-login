@@ -3,28 +3,15 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { Navigate, Link } from "react-router-dom";
 
-const Login = () => {
+const Login: React.FC = () => {
   const [user, setUser] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-    } catch (error: typeof error.message) {
-      // alert("メールアドレスまたはパスワードが間違っています");
-      alert(error.message);
-    }
+    // auth.signInWithEmailAndPassword(email, password);
   };
-
-  useEffect(() => {
-    const unSub = onAuthStateChanged(auth, (currentUser: any) => {
-      setUser(currentUser);
-    });
-    return () => unSub();
-  });
 
   return (
     <>
@@ -39,9 +26,9 @@ const Login = () => {
               <input
                 name="email"
                 type="email"
-                value={loginEmail}
+                value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setLoginEmail(e.target.value)
+                  setEmail(e.target.value)
                 }
               />
             </div>
@@ -50,9 +37,9 @@ const Login = () => {
               <input
                 name="password"
                 type="password"
-                value={loginPassword}
+                value={password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setLoginPassword(e.target.value)
+                  setPassword(e.target.value)
                 }
               />
             </div>
